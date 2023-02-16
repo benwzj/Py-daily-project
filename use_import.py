@@ -11,3 +11,7 @@ print (m.pi)
 import decorator as de
 
 print(de.de_say_hi())
+
+from dir1.dir2.importtest import import_file_test
+
+import_file_test()
