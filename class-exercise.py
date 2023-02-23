@@ -12,3 +12,5 @@ languages = [Language("python"), Language("javascript")]
 
 for language in languages:
   language.message()
+
+

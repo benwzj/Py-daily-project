@@ -1,4 +1,4 @@
-"""
+
 ### question1: reverse a string.
 
 # operate it as an array
@@ -14,12 +14,20 @@ print(str2)
 # using slice syntax:
 print(str1[::-1])
 
+# using for
+tmp = ""
+for i in str1:
+  tmp = i + tmp
+ 
+print (tmp)
+
+"""
 ### Question2: Remove Duplicates From a Python List
 # use dict.fromkeys(), don't use set, because set is unordered
 keywords = ['foo', 'bar', 'bar', 'foo', 'baz', 'foo']
 print (list(dict.fromkeys(keywords)))
 print (list(set(keywords)))
-"""
+
 ### Question3: nonlocal concept
 def test_scopes():
   x = 'spam'
@@ -42,3 +50,5 @@ def test_scopes():
 
 test_scopes()
 print(x)
+"""
+

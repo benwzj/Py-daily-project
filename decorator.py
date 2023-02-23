@@ -1,5 +1,5 @@
-# what is decorator in python
-# we have a function:
+### what is decorator in python
+# we have a decorator function:
 def uppercase_decorator(function):
     def wrapper():
         func = function()
@@ -14,7 +14,7 @@ def say_hi():
 
 print(uppercase_decorator(say_hi)())
 
-# use decorator, same result as above:
+# also we can use decorator, same result as above:
 @uppercase_decorator
 def de_say_hi():
     return "Hello There using decorator"
