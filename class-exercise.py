@@ -45,3 +45,4 @@ car1.go_forward()
 
 truck1 = Truck()
 truck1.go_forward()
+
