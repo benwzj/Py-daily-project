@@ -50,20 +50,20 @@ def reverse_list_in_location(lst, start_pos, end_pos):
 ## Write a Python function find the length of the longest 
 ## increasing sub-sequence in a said list, which contains numbers.
 def longest_increasing_subsequence1(nums):
-  max_all = 1
-  max_sub = 1
+  longest = 1
+  length = 1
   start = nums[0]
   for i in nums:
     if i > start:
-      max_sub += 1
+      length += 1
     else:
-      max_sub = 1
+      length = 1
     start = i      
-    if max_sub > max_all: 
-      max_all = max_sub
-  return max_all
+    if length > longest: 
+      longest = length
+  return longest
 
-## the following way have some problem. but it make the picture bigger 
+## the following way have some problem. but it make another picture 
 ## for resolving the problem. 
 def longest_increasing_subsequence2(nums):
     n = len(nums)
@@ -72,13 +72,31 @@ def longest_increasing_subsequence2(nums):
         for j in range(i):
             if nums[i] > nums[j]:
                 arr[i] = max(arr[i], arr[j]+1)
+    print(arr)
     return max(arr)
 
 nums = [10,100,1000,1,3,5,1,30,40,50,60,70,80,909,10,2]
-nums1 = [10,20,30,40,50,30,30,20]
+
 print( longest_increasing_subsequence1(nums))
 print( longest_increasing_subsequence2(nums))
 
+
+## Write a Python function that finds all the permutations of the members of a list.
+def permutations(nums):
+    if len(nums) == 0:
+        return []
+    if len(nums) == 1:
+        return [nums]
+    result = []
+    for i in range(len(nums)):
+        m = nums[i]
+        rem_list = nums[:i] + nums[i+1:]
+        for p in permutations(rem_list):
+            result.append([m] + p)
+    return result
+
+nums1 = [10,30,20]
+print(permutations(nums1))
 
 """
 ### Question2: Remove Duplicates From a Python List
