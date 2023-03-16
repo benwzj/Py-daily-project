@@ -82,6 +82,7 @@ print( longest_increasing_subsequence2(nums))
 
 
 ## Write a Python function that finds all the permutations of the members of a list.
+
 def permutations(nums):
     if len(nums) == 0:
         return []
