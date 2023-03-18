@@ -77,13 +77,13 @@ def longest_increasing_subsequence2(nums):
 
 nums = [10,100,1000,1,3,5,1,30,40,50,60,70,80,909,10,2]
 
-print( longest_increasing_subsequence1(nums))
-print( longest_increasing_subsequence2(nums))
+#print( longest_increasing_subsequence1(nums))
+#print( longest_increasing_subsequence2(nums))
 
-
+### permutations
 ## Write a Python function that finds all the permutations of the members of a list.
-
-def permutations(nums):
+# method1: 
+def permutations1(nums):
     if len(nums) == 0:
         return []
     if len(nums) == 1:
@@ -92,12 +92,33 @@ def permutations(nums):
     for i in range(len(nums)):
         m = nums[i]
         rem_list = nums[:i] + nums[i+1:]
-        for p in permutations(rem_list):
+        for p in permutations1(rem_list):
             result.append([m] + p)
     return result
 
-nums1 = [10,30,20]
-print(permutations(nums1))
+# method2
+
+def permutations2(lst, i=0):
+    if i == len(lst):
+      print (lst)
+    for j in range(i, len(lst)):
+      # need to create new memory
+      tmp = [p for p in lst]
+      # swap
+      tmp[i], tmp[j] = tmp[j], tmp[i]
+      permutations2(tmp, i+1)
+
+nums1 = ['a','b','c']
+print(permutations1(nums1))
+permutations2(nums1)
+
+
+# permutations function in itertools lib
+from itertools import permutations
+
+words = [''.join(p) for p in permutations('pro')]
+word = [p for p in permutations('pro')]
+#print(word)
 
 """
 ### Question2: Remove Duplicates From a Python List
