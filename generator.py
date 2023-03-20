@@ -1,5 +1,40 @@
 
-# clone python's built-in range() function:
+##################################################
+# If you create a list to sum the first n. When n is really big, 
+# then it consume lots of memory. Not acceptable. 
+# Using generator pattern is better. (an iterable)
+class first_n(object):
+    def __init__(self, n):
+        self.n = n
+        self.num = 0
+
+    def __iter__(self):
+        return self
+
+    # Python 3 compatibility
+    def __next__(self):
+        return self.next()
+
+    def next(self):
+        if self.num < self.n:
+            cur, self.num = self.num, self.num+1
+            return cur
+        raise StopIteration()
+
+#sum_of_first_n = sum(first_n(1000000))
+
+# iterator looks too much detail. 
+# a generator fucntion can provide simpler way and same result as above.
+def firstn(n):
+    num = 0
+    while num < n:
+        yield num
+        num += 1
+
+#sum_of_first_n = sum(firstn(1000000))
+
+##################################################
+### clone python's built-in range() function:
 def my_range(start, stop, step=1):
     i = start
     while i < stop:
@@ -9,6 +44,7 @@ def my_range(start, stop, step=1):
 # for p in my_range(3,14):
 #     print(p)
 
+##################################################
 ### permutations
 def permutations(lst, i=0):
     if i == len(lst):
