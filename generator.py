@@ -45,6 +45,27 @@ def my_range(start, stop, step=1):
 #     print(p)
 
 ##################################################
+# understand yield from
+
+def reader():
+    """A generator that fakes a read from a file, socket, etc."""
+    for i in range(4):
+        yield '<< %s' % i
+
+def reader_wrapper(g):
+    # Manually iterate over data produced by reader
+    for v in g:
+        yield v
+
+# Instead of manually iterating over reader(), we can just yield from it.
+def reader_wrapper1(g):
+    yield from g
+
+wrap = reader_wrapper1(reader())
+for i in wrap:
+    print(i)
+
+##################################################
 ### permutations
 def permutations(lst, i=0):
     if i == len(lst):
@@ -57,7 +78,7 @@ def permutations(lst, i=0):
       tmp[i], tmp[j] = tmp[j], tmp[i]
       permutations(tmp, i+1)
 
-permutations(['a','b','c'])
+# permutations(['a','b','c'])
 # for i in permutations(['a','b','c']):
 #    print (i)
 
@@ -65,11 +86,12 @@ permutations(['a','b','c'])
 # ### permutations
 def permutation_generator(word):
     if len(word) == 0:
-        yield ""
+        yield "1"+word
     else:
         for m in range(len(word)):
-            for n in permutation_generator(word[:m] + word[m + 1:]):
+            for n in permutation_generator(word[:m] + word[m+1:]):
                 yield word[m] + n
 
-# for x in permutation_generator("hoe"):
-#     print(x)
+# pg = permutation_generator("hoe")
+# for k in pg:
+#     print (k)

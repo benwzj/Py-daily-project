@@ -4,7 +4,7 @@
 # Clear the flow of recursive function execution: 
 # keep variable value during enter and withdraw process
 ##############################################################
-# simple one:
+### simple one:
 def test_recursion(n):
     if n < 0:
         return
@@ -14,22 +14,24 @@ def test_recursion(n):
     
 #test_recursion(4)
 
-# factorial
+### factorial
 def factorial(n):
     return 1 if n <= 1 else n * factorial(n - 1)
 
-print(factorial (4))
+#print(factorial (4))
 
-# generator recusion:
+##############################################################
+### generator recusion:
 def generator_recursion(n):
     if n < 0:
         return
     else:
-        generator_recursion(n-1)
+        yield from generator_recursion(n-1)
         yield n
     
-# for k in generator_recursion(4):
-#     print(k)
+gr = generator_recursion(4)
+for g in gr:
+    print(g)
 
 ##############################################################
 # You can find out what Python’s recursion limit is with a function 
