@@ -45,6 +45,7 @@ def my_range(start, stop, step=1):
 #     print(p)
 
 ##################################################
+# subgenerator concept
 # understand yield from
 
 def reader():
@@ -61,24 +62,38 @@ def reader_wrapper(g):
 def reader_wrapper1(g):
     yield from g
 
-wrap = reader_wrapper1(reader())
-for i in wrap:
-    print(i)
+# wrap = reader_wrapper1(reader())
+# for i in wrap:
+#     print(i)
+
+##############################################################
+### generator recusion, It use subgenerator concept:
+# It won't without yield from
+
+def generator_recursion(n):
+    if n < 0:
+        return
+    else:
+        yield from generator_recursion(n-1)
+        yield n
+    
+# gr = generator_recursion(4)
+# for g in gr:
+#     print(g)
 
 ##################################################
 ### permutations
 def permutations(lst, i=0):
     if i == len(lst):
-      print (lst)
-      #yield lst
+      #print (lst)
+      yield lst
     for j in range(i, len(lst)):
       # need to create new memory
       tmp = [p for p in lst]
       # swap
       tmp[i], tmp[j] = tmp[j], tmp[i]
-      permutations(tmp, i+1)
+      yield from permutations(tmp, i+1)
 
-# permutations(['a','b','c'])
 # for i in permutations(['a','b','c']):
 #    print (i)
 
@@ -92,6 +107,6 @@ def permutation_generator(word):
             for n in permutation_generator(word[:m] + word[m+1:]):
                 yield word[m] + n
 
-# pg = permutation_generator("hoe")
-# for k in pg:
-#     print (k)
+pg = permutation_generator("hoe")
+for k in pg:
+    print (k)

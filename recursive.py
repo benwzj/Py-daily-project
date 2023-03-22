@@ -21,19 +21,6 @@ def factorial(n):
 #print(factorial (4))
 
 ##############################################################
-### generator recusion:
-def generator_recursion(n):
-    if n < 0:
-        return
-    else:
-        yield from generator_recursion(n-1)
-        yield n
-    
-gr = generator_recursion(4)
-for g in gr:
-    print(g)
-
-##############################################################
 # You can find out what Python’s recursion limit is with a function 
 # from the sys module called getrecursionlimit():
 from sys import getrecursionlimit
