@@ -17,7 +17,8 @@ class countdown_iter(object):
   def __iter__(self):
     return self
 
-c = countdown(5)
+#c = countdown(5)
+c = [1,2,3,4]
 ci = iter(c)
 print(next(ci))
 print(next(ci))

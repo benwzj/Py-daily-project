@@ -74,12 +74,12 @@ def generator_recursion(n):
     if n < 0:
         return
     else:
-        yield from generator_recursion(n-1)
-        yield n
+        n = yield from generator_recursion(n-1)
+        #yield n
     
-# gr = generator_recursion(4)
-# for g in gr:
-#     print(g)
+gr = generator_recursion(4)
+for g in gr:
+    print(g)
 
 ##################################################
 ### permutations
@@ -97,16 +97,16 @@ def permutations(lst, i=0):
 # for i in permutations(['a','b','c']):
 #    print (i)
 
-# Recursive Generators
+# Recursive Generators, no yield from
 # ### permutations
 def permutation_generator(word):
     if len(word) == 0:
-        yield "1"+word
+        yield word
     else:
         for m in range(len(word)):
             for n in permutation_generator(word[:m] + word[m+1:]):
                 yield word[m] + n
 
-pg = permutation_generator("hoe")
-for k in pg:
-    print (k)
+# pg = permutation_generator("hoe")
+# for k in pg:
+#     print (k)
