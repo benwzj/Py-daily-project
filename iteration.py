@@ -23,4 +23,4 @@ ci = iter(c)
 print(next(ci))
 print(next(ci))
 for k in ci:
-  print (k)
+  print ("\033[0m" + str(k))
