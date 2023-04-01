@@ -1,4 +1,7 @@
 
+
+###################################################
+# clear the concepts of iterable and iteraor
 class countdown(object):
   def __init__(self,start):
     self.start = start
@@ -17,10 +20,31 @@ class countdown_iter(object):
   def __iter__(self):
     return self
 
-#c = countdown(5)
-c = [1,2,3,4]
-ci = iter(c)
-print(next(ci))
-print(next(ci))
-for k in ci:
-  print ("\033[0m" + str(k))
+# #c = countdown(5)
+# c = [1,2,3,4]
+# ci = iter(c)
+# print(next(ci))
+# print(next(ci))
+# for k in ci:
+#   print ("\033[0m" + str(k))
+
+#######################################
+# itertools cycle
+
+from itertools import cycle
+
+def endless():
+  yield from cycle((4,3,2,1))
+
+start = 0
+e = endless()
+for i in e:
+  if start < 15:
+    print (i)
+    start += 1
+  else:
+    print ("done at: "+ str(i))
+    break
+
+print("next1: "+ str(next(e)))
+print("next2: "+ str(next(e)))
