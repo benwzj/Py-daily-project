@@ -1,5 +1,6 @@
 ##########################################################
-# basic one
+# basic one 
+# coroutine example
 
 import asyncio
 import datetime
@@ -10,7 +11,7 @@ async def nested():
     await asyncio.sleep(1)
     print("100")
 
-async def main():
+async def basic_one():
     print("let's start! " + str(datetime.datetime.now()))
     task = asyncio.gather(nested(), nested(), nested())
     await task
@@ -38,13 +39,29 @@ async def makerandom(idx: int, threshold: int) -> int:
     print(c[idx + 1] + f"---> Finished: makerandom({idx}) == {int_ran}" + c[0])
     return int_ran
 
-async def main():
+async def gather_makerandom():
     threshold = [5,7,3]
     res = await asyncio.gather(*(makerandom(i, threshold[i]) for i in range(3)))
     return res
 
-if __name__ == "__main__":
-    random.seed(444)
-    r1, r2, r3 = asyncio.run(main())
-    print()
-    print(f"r1: {r1}, r2: {r2}, r3: {r3}")
+# random.seed(444)
+# r1, r2, r3 = asyncio.run(gather_makerandom())
+# print()
+# print(f"r1: {r1}, r2: {r2}, r3: {r3}")
+
+###################################################
+# create_task () example:
+
+async def coro(seq) -> list:  
+  await asyncio.sleep(5)
+  return list(reversed(seq))
+
+async def task_demo():
+    t = asyncio.create_task(coro([1,2,3]))
+    await t
+    print(f't: type({type(t)})')
+    print(f't.done(): {t.done()}')
+
+asyncio.run(task_demo())
+
+

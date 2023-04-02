@@ -36,15 +36,29 @@ from itertools import cycle
 def endless():
   yield from cycle((4,3,2,1))
 
-start = 0
-e = endless()
-for i in e:
-  if start < 15:
-    print (i)
-    start += 1
-  else:
-    print ("done at: "+ str(i))
-    break
+# start = 0
+# e = endless()
+# for i in e:
+#   if start < 15:
+#     print (i)
+#     start += 1
+#   else:
+#     print ("done at: "+ str(i))
+#     break
 
-print("next1: "+ str(next(e)))
-print("next2: "+ str(next(e)))
+# print("next1: "+ str(next(e)))
+# print("next2: "+ str(next(e)))
+
+
+#########################################################
+# list object is pure iterable
+
+mylist = [1,2,3]
+
+l1 = iter(mylist)
+print(next(l1))
+print(next(l1))
+print(next(l1))
+l2 = iter(mylist)
+print(next(l2))
+

@@ -41,6 +41,16 @@ def my_range(start, stop, step=1):
         yield i
         i += step
 
+o_my_range = my_range(3,6)
+iter_my_range = iter(o_my_range)
+print(type(o_my_range))
+print(type(iter_my_range))
+print(next(iter_my_range))
+print(next(iter_my_range))
+
+iter_my_range2 = iter(o_my_range)
+print("range2")
+print(next(iter_my_range2))
 # for p in my_range(3,14):
 #     print(p)
 
@@ -68,7 +78,8 @@ def reader_wrapper1(g):
 
 ##############################################################
 ### generator recusion, It use subgenerator concept:
-# It won't without yield from
+# the code below won't work if just using yeild. 
+# It need yield from to work.
 
 def generator_recursion(n):
     if n < 0:
@@ -77,9 +88,9 @@ def generator_recursion(n):
         n = yield from generator_recursion(n-1)
         #yield n
     
-gr = generator_recursion(4)
-for g in gr:
-    print(g)
+# gr = generator_recursion(4)
+# for g in gr:
+#     print(g)
 
 ##################################################
 ### permutations
