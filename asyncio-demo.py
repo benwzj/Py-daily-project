@@ -1,22 +1,34 @@
-##########################################################
-# basic one 
-# coroutine example
 
 import asyncio
 import datetime
 import random
+import time
+##########################################################
+# basic one 
+# coroutine example
 
+async def basic_one():
+    print("Hello")
+    await asyncio.sleep(3)
+    print("World")
+
+# asyncio.run(basic_one())
+
+##########################################################
+# nested one 
+# coroutine example
 async def nested():
     print("42")
     await asyncio.sleep(1)
     print("100")
 
-async def basic_one():
+async def gather_demo():
     print("let's start! " + str(datetime.datetime.now()))
     task = asyncio.gather(nested(), nested(), nested())
     await task
     print("end at " + str(datetime.datetime.now()))
 
+# asyncio.run(gather_demo())
 ############################################################
 # This example runs 3 coroutines concurrently. 
 # The makerandom conroutine is trying to simulate some jobs 
@@ -51,6 +63,26 @@ async def gather_makerandom():
 
 ###################################################
 # create_task () example:
+async def say_hello():
+    await asyncio.sleep(2)
+    print("Hello")
+
+async def not_task():
+    print(f"started at {time.strftime('%X')}")
+    await say_hello()
+    await say_hello()
+    print(f"started at {time.strftime('%X')}")
+
+async def is_task():
+    t1 = asyncio.create_task(say_hello())
+    t2 = asyncio.create_task(say_hello())
+    print(f"started at {time.strftime('%X')}")
+    await t1
+    await t2
+    print(f"started at {time.strftime('%X')}")
+
+asyncio.run(is_task())
+asyncio.run(not_task())
 
 async def coro(seq) -> list:  
   await asyncio.sleep(5)
@@ -62,6 +94,24 @@ async def task_demo():
     print(f't: type({type(t)})')
     print(f't.done(): {t.done()}')
 
-asyncio.run(task_demo())
+# asyncio.run(task_demo())
 
+
+###################################################
+# event_loop () example:
+# @asyncio.coroutine exmaple:
+
+@asyncio.coroutine
+def countdown(name, n):
+    while n > 0:
+        print('T-minus', n, '({})'.format(name))
+        yield from asyncio.sleep(1)
+        n -= 1
+
+# loop = asyncio.get_event_loop()
+# tasks = [
+#     asyncio.ensure_future(countdown("A", 2)),
+#     asyncio.ensure_future(countdown("B", 3))]
+# loop.run_until_complete(asyncio.wait(tasks))
+# loop.close()
 
