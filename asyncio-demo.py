@@ -62,7 +62,9 @@ async def gather_makerandom():
 # print(f"r1: {r1}, r2: {r2}, r3: {r3}")
 
 ###################################################
-# create_task () example:
+# create_task () example
+# understand why we need task
+
 async def say_hello():
     await asyncio.sleep(2)
     print("Hello")
@@ -83,19 +85,6 @@ async def is_task():
 
 asyncio.run(is_task())
 asyncio.run(not_task())
-
-async def coro(seq) -> list:  
-  await asyncio.sleep(5)
-  return list(reversed(seq))
-
-async def task_demo():
-    t = asyncio.create_task(coro([1,2,3]))
-    await t
-    print(f't: type({type(t)})')
-    print(f't.done(): {t.done()}')
-
-# asyncio.run(task_demo())
-
 
 ###################################################
 # event_loop () example:
