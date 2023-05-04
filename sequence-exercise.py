@@ -72,25 +72,70 @@ def longest_increasing2(nums):
 #################################################################
 ### permutations
 ## Write a Python function that finds all the permutations of the members of a list.
+
+"""
+you don't have to remember the algorithm. Getting to know the permutations() method
+in itertools is enough.  
+"""
+
 # method1: 
+from itertools import permutations
 
-permutation_list = 'abcefg'
+permutation_result = [p for p in permutations('pro')]
+#print(permutation_result)
 
-def factorial(n):
-  r = 1
-  for i in range(1,n+1):
-    r = r * i
-  return r
-
-
+# method2
 def permutation_fun1(l, count = 0):
   if count == len(l):
     print (l)
   
   for i in range(count, len(l)):
-    tmp = [p for p in l]
+    # need to create new memory
+    # tmp = [p for p in l]
+    tmp = list(l)
     tmp[i], tmp[count] = tmp[count], tmp[i]
     permutation_fun1(tmp, count+1)
   
-permutation_fun1([1,3,5])
-  
+# permutation_fun1([1,3,5])
+
+# method3: 
+def permutations1(nums):
+    if len(nums) == 0:
+        return []
+    if len(nums) == 1:
+        return [nums]
+    result = []
+    for i in range(len(nums)):
+        m = nums[i]
+        rem_list = nums[:i] + nums[i+1:]
+        for p in permutations1(rem_list):
+            result.append([m] + p)
+    return result
+
+print(permutations1([1,3,5]))
+
+#################################################################
+"""
+We have a matrix = [[1,2], [3,4], [5,6], [7,8]]
+Now need to turn matrix into [[1, 3, 5, 7], [2, 4, 6, 8]]
+"""
+matrix = [[1,2], [3,4], [5,6], [7,8]]
+# nested list complihension
+re_matrix1 = [[row[i] for row in matrix ] for i in range(2)]
+
+re_matrix2 = []
+for i in range(2):
+  row = []
+  for j in matrix:
+    row.append(j[i])
+  re_matrix2.append(row)
+
+#################################################################
+### Question: Remove Duplicates From a Python List
+# use dict.fromkeys(), don't use set, because set is unordered
+keywords = ['foo', 'bar', 'bar', 'foo', 'baz', 'foo']
+print (list(dict.fromkeys(keywords)))
+print (list(set(keywords)))
+
+
+
