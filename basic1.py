@@ -20,7 +20,14 @@ def test_scopes():
   change_global()
   print(x)
 
-test_scopes()
-print(x)
+# test_scopes()
+# print(x)
 
+#################################################################
+# understand infinity
 
+inf1 = float('inf')
+inf2 = float('inf')
+ram = 92389208302123
+print ( inf1 == inf2 ) # True
+print ( inf1 > ram )

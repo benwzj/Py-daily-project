@@ -200,7 +200,6 @@ def max_sum_subsequence2(arr):
 # print(max_sum_subsequence1(nums))
 # print(max_sum_subsequence2(nums))
 
-
 """
 Question: 
 find the maximum sum sub-sequence in a list, and return that sub-sequence.
@@ -230,28 +229,30 @@ def max_sum_subsequence3(arr):
     return arr[max_index+1-dp[max_index][1]: max_index+1]
 
 # According to Rule2: 
+# if current_sum if smaller than 0, then update current_start 
 def max_sum_subsequence4(arr):
   max_value, sum_value = 0, 0
-  start, end = 0, 0
+  start, end, current_start = 0, 0, 0
 
   for i in range(len(arr)):
     sum_value += arr[i]
     if sum_value > max_value: 
       max_value = sum_value
+      start = current_start
       end = i
     if sum_value < 0:
       sum_value = 0
-      start = i + 1
+      current_start = i + 1
   print(max_value)
   return arr[start: end+1]
 
-nums = [8,-12,1,1000,4,3,-5,4,-100,99,5,-10]
-print( max_sum_subsequence4(nums) )
-print( max_sum_subsequence3(nums) )
+# nums = [98,-12,1,10,-4,3,-500,4,10,5,-10, 9]
+# print( max_sum_subsequence3(nums) )
+# print( max_sum_subsequence4(nums) )
 
 """
-find the minimum sum sub-sequence in a list, and return that sub-sequence.
-
+Quention: 
+Find the minimum sum sub-sequence in a list, and return that sub-sequence.
 """
 def minimum_sum_subsequence(lst):
     min_sum = float('inf')
@@ -272,4 +273,6 @@ def minimum_sum_subsequence(lst):
 
 # nums = [8,-12,1,1000,-4,3,5,4,-1000,9,2,-12,11]
 # print(minimum_sum_subsequence(nums))
+
+#################################################################
 
