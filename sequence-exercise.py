@@ -112,7 +112,7 @@ def permutations1(nums):
             result.append([m] + p)
     return result
 
-print(permutations1([1,3,5]))
+# print(permutations1([1,3,5]))
 
 #################################################################
 """
@@ -134,8 +134,142 @@ for i in range(2):
 ### Question: Remove Duplicates From a Python List
 # use dict.fromkeys(), don't use set, because set is unordered
 keywords = ['foo', 'bar', 'bar', 'foo', 'baz', 'foo']
-print (list(dict.fromkeys(keywords)))
-print (list(set(keywords)))
+# print (list(dict.fromkeys(keywords)))
+# print (list(set(keywords)))
+
+#################################################################
+# Write a Python a function to find the union and intersection of two lists
+# Set type provide a range of method for mathematical 
+# operation: intersection, union, difference, and symmetric difference
+
+intersection1 = [1, 2, 3, 4, 5]
+intersection2 = [3, 4, 5, 6, 7, 8]
+
+def find_intersection (l1, l2):
+  return l1, l2
+
+# print(type(find_intersection(intersection1, intersection2)))
+# print(set(intersection1) & set(intersection2))
+  
+
+#################################################################
+# maximum minimum sum sub-sequence problems:
+"""
+Question:
+Find the maximum sum sub-sequence in a list, and return the maximum sum value.
+Like:
+nums =  [-4,-1,100,-4,3,5,4,6,9,2,-10]
+maximum sum sub-sequence should be:
+sum([100,-4,3,5,4,6,9,2])
+"""
+"""
+Conclusion:
+Sum sub-sequence knowlodge basic:
+-- Rule1: 
+   If sum of sub-sequence smaller than the current value. 
+   that means it should stop for maximum
+-- Rule2: 
+   If Sum of sub-sequence bigger than 0. that means it will be part of Maximum.
+-- vice versa for minimum
+"""
+
+# According to Rule1
+def max_sum_subsequence1(arr):
+    n = len(arr)
+    dp = [0] * n
+    dp[0] = arr[0]
+    for i in range(1, n):
+      dp[i] = max(arr[i], dp[i-1] + arr[i])
+    return max(dp)
+    # return dp
+
+# According to Rule2:
+def max_sum_subsequence2(arr):
+  max_value, sum_value = 0, 0
+  for i in range (len (arr)):
+    sum_value += arr[i]
+    if sum_value < 0:
+      sum_value = 0
+    if sum_value > max_value:
+      max_value = sum_value
+  if max_value == 0:
+    max_value = max(arr)
+  return max_value
+
+# nums = [12,-1,-100,4,3,-5,1000,9,2,10,-1]
+# print(max_sum_subsequence1(nums))
+# print(max_sum_subsequence2(nums))
 
 
+"""
+Question: 
+find the maximum sum sub-sequence in a list, and return that sub-sequence.
+"""
+
+# According to Rule1: 
+def max_sum_subsequence3(arr):
+    n = len(arr)
+    dp = [(arr[0],1)]
+    for i in range(1, n):
+      value = dp[i-1][0]
+      count = dp[i-1][1]
+      if arr[i] > value + arr[i]:
+        count = 1
+      else:
+        count += 1
+      value = max (value+arr[i], arr[i])
+      dp.append ((value, count))
+    #print(dp)
+    max_index = 0
+    max_value = dp[0][0]
+    for j in range(1,len(dp)):
+      if dp[j][0] > max_value:
+        max_index = j
+        max_value = dp[j][0]
+    print(max_value)
+    return arr[max_index+1-dp[max_index][1]: max_index+1]
+
+# According to Rule2: 
+def max_sum_subsequence4(arr):
+  max_value, sum_value = 0, 0
+  start, end = 0, 0
+
+  for i in range(len(arr)):
+    sum_value += arr[i]
+    if sum_value > max_value: 
+      max_value = sum_value
+      end = i
+    if sum_value < 0:
+      sum_value = 0
+      start = i + 1
+  print(max_value)
+  return arr[start: end+1]
+
+nums = [8,-12,1,1000,4,3,-5,4,-100,99,5,-10]
+print( max_sum_subsequence4(nums) )
+print( max_sum_subsequence3(nums) )
+
+"""
+find the minimum sum sub-sequence in a list, and return that sub-sequence.
+
+"""
+def minimum_sum_subsequence(lst):
+    min_sum = float('inf')
+    start, end = 0, 0
+    curr_start, curr_sum = 0, 0
+    
+    for i in range(len(lst)):
+        curr_sum += lst[i]
+        if curr_sum < min_sum:
+            min_sum = curr_sum
+            start = curr_start
+            end = i
+        if curr_sum > 0:
+            curr_sum = 0
+            curr_start = i + 1
+    
+    return lst[start:end+1]
+
+# nums = [8,-12,1,1000,-4,3,5,4,-1000,9,2,-12,11]
+# print(minimum_sum_subsequence(nums))
 
