@@ -1,4 +1,5 @@
 
+from collections import Counter
 import operator
 #################################################################
 # Sorting Dictionaries in Python
@@ -50,6 +51,7 @@ def get_max_min1(d):
 # add items
 
 my_dict = {'x': 500, 'y': 5874, 'z': 560}
+
 # 1 directly
 my_dict[3] = "xyz"
 
@@ -60,4 +62,47 @@ my_dict.update(dict_list)
 
 # 3 using keyword parameter
 my_dict.update(iii=111)
-print(my_dict)
+
+# print(my_dict)
+
+
+#################################################################
+#  remove duplicates value from the dictionary.
+
+student_data = {'id1':
+                {'name': ['Sara'],
+                 'class': ['V'],
+                    'subject_integration': ['english, math, science']
+                 },
+                'id2':
+                {'name': ['David'],
+                    'class': ['V'],
+                    'subject_integration': ['english, math, science']
+                 },
+                'id3':
+                {'name': ['Sara'],
+                    'class': ['V'],
+                    'subject_integration': ['english, math, science']
+                 },
+                'id4':
+                {'name': ['Surya'],
+                    'class': ['V'],
+                    'subject_integration': ['english, math, science']
+                 },
+                }
+
+
+def remove_duplicated_values(d):
+    result = {}
+    for key, value in d.items():
+        if value not in result.values():
+            result[key] = value
+    return result
+
+
+# print(remove_duplicated_values(student_data))
+
+d1 = {'a': 100, 'b': 200, 'c': 300}
+d2 = {'a': 300, 'b': 200, 'd': 400}
+d = Counter(d1) + Counter(d2)
+print(d)
