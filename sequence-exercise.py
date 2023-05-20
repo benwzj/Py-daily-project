@@ -1,8 +1,7 @@
-
 #################################################################
 # reverse a string.
 
-from itertools import permutations
+import itertools
 str1 = "abcdefghijklmnopqrstuvwxyz"
 
 
@@ -90,8 +89,8 @@ in itertools is enough.
 
 # method1:
 
-permutation_result = [p for p in permutations('pro')]
-# print(permutation_result)
+# print([p for p in itertools.permutations('pro')])
+
 
 # method2
 
@@ -127,6 +126,21 @@ def permutations1(nums):
 
 # print(permutations1([1,3,5]))
 
+#################################################################
+# Cartesian product: itertools product() example
+# ('ABCD', 'xy') --> Ax Ay Bx By Cx Cy Dx Dy
+
+
+product_sample = ('ABCD', 'xy')
+
+# print(list(itertools.product(*product_sample)))
+
+pools = [(1, 2, 3), (6, 7, 8)]
+result = [[]]
+for pool in pools:
+    result = [x+[y] for x in result for y in pool]
+
+print(result)
 
 #################################################################
 """
@@ -141,7 +155,6 @@ matrix = [[1, 2], [3, 4], [5, 6], [7, 8]]
 def re_matrix1(l):
     return [[j[k] for j in l] for k in range(2)]
 
-
 # print(re_matrix1(matrix))
 
 
@@ -154,12 +167,13 @@ def re_matrix2(l):
         result.append(row)
     return result
 
-
 # print(re_matrix2(matrix))
+
 
 #################################################################
 # Question: Remove Duplicates From a Python List
 # use dict.fromkeys(), don't use set, because set is unordered
+
 keywords = ['foo', 'bar', 'bar', 'foo', 'baz', 'foo']
 # print (list(dict.fromkeys(keywords)))
 # print (list(set(keywords)))
