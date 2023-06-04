@@ -49,26 +49,29 @@ class Truck(Vehicle):
 # vehicle1 = Vehicle()
 
 
-car1 = Car()
-car1.go_forward()
+# car1 = Car()
+# car1.go_forward()
 
-truck1 = Truck()
-truck1.go_forward()
+# truck1 = Truck()
+# truck1.go_forward()
 
 #################################################################
-# magic method __dict__
+# magic method __getitem__,  __setitem__
 
-lst = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+class Building:
+    def __init__(self, count):
+        self.floor = [None] * count
 
-# print(list(enumerate(lst)))
-# for i, value in enumerate(lst):
-#     print(lst)
-#     if i % 2 == 0:
-#         lst.pop(i)
+    def __setitem__(self, n, data):
+        self.floor[n] = data
 
-for i in range(len(lst)):
-    print(lst)
-    if i % 2 == 0:
-        lst.pop(i)
+    def __getitem__(self, n):
+        return self.floor[n]
 
-print(lst)
+
+myBuilding = Building(4)
+myBuilding[0] = "reception"
+myBuilding[1] = 'sales'
+myBuilding[2] = "RD"
+
+print(myBuilding[1])
