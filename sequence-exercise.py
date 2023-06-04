@@ -372,9 +372,3 @@ def my_enumerate(lst):
 
 # print(lst)
 #################################################################
-# zip()
-
-ziplist1 = ['foo', 'bar', 'bar', 'foo', 'baz', 'foo']
-ziplist2 = [98, -12, 1, 10, -4, 3, -500, 4, 10, 5, -10, 9]
-
-print(*zip(ziplist1, ziplist2))
