@@ -1,4 +1,5 @@
 
+import json
 from collections import Counter, defaultdict
 import operator
 #################################################################
@@ -276,7 +277,7 @@ def default_int():
     print(d)
 
 
-default_int()
+# default_int()
 
 #################################################################
 # dict.fromkeys(keys, value) example
@@ -300,8 +301,28 @@ def dictvalue_set():
         print(k, v)
 
 
-dictvalue_set()
+# dictvalue_set()
 
-ssh://git-codecommit.us-east-1.amazonaws.com/v1/repos/BenWordPress
+github_credential = "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"
 
-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
+#################################################################
+
+# print(json.dumps({"c": 0, "b": 0, "a": 0}, sort_keys=True))
+
+# f = json.dumps(
+#     ['foo', {'bar': ('baz', None, 1.0, 2)}])
+
+# print(type(f))
+d = {"students": [{"firstName": "Nikki", "lastName": "Roysden"},
+                  {"firstName": "Mervin", "lastName": "Friedland"},
+                  {"firstName": "Aron ", "lastName": "Wilkins"}],
+     "teachers": [{"firstName": "Amberly", "lastName": "Calico"},
+                  {"firstName": "Regine", "lastName": "Agtarap"}]}
+
+with open("dictionary", "w") as f:
+    json.dump(d, f, indent=4, sort_keys=True)
+
+print("\nJson file to dictionary:")
+with open('dictionary') as f:
+    data = json.load(f)
+print(data)

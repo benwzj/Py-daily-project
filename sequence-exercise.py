@@ -1,6 +1,7 @@
 #################################################################
 # reverse a string.
 
+import sys
 import itertools
 str1 = "abcdefghijklmnopqrstuvwxyz"
 
@@ -346,29 +347,58 @@ def list_sort(lst):
 # print(list_sort([4, 7, 2, 9, 6, 2, 1, 0, 33, 77]))
 
 #################################################################
-# Don't change the list when you are loop over it
+# You should not change the list when you are loop over it
+# To undertand that, it is a lazy processing when iterate over a iterable object:
 
-lst = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-# try:
-#     for i in range(len(lst)):
-#         lst.pop(i)
+def test_outofrange_error():
+    lst = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    try:
+        for i in range(len(lst)):
+            lst.pop(i)
 
-# except IndexError as e:
-#     print(e)
+    except IndexError as e:
+        print(e)
 
-
-def my_enumerate(lst):
-    n = 0
-    for i in lst:
-        yield n, i
-        n += 1
+# test_outofrange_error()
 
 
-# print(list(my_enumerate(lst)))
-# for i, value in my_enumerate(lst):
-#     print(lst)
-#     print(i, value)
-#     lst.pop(i)
+def test_enumerate_noerror():
+    lst = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-# print(lst)
+    def my_enumerate(l):
+        n = 0
+        for i in l:
+            yield n, i
+            n += 1
+
+    print(* my_enumerate(lst))
+    for i, value in my_enumerate(lst):
+        print(lst)
+        print(i, value)
+        lst.pop(i)
+
+    print(lst)
+
+
+# test_enumerate_noerror()
+
 #################################################################
+# memory
+
+
+def test_list_memory():
+    big_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    part_list = big_list[:5]
+    part_list_2 = part_list * 5
+    print("size of big", sys.getsizeof(big_list))
+    print("size of part_list", sys.getsizeof(part_list_2))
+
+
+def test_memory2():
+    print("size of 12", sys.getsizeof(['1', '2']))
+    print("size of 1", sys.getsizeof(['1']))
+    print("size of 3", sys.getsizeof(['1dfgregfdsgrgfdsrgfdsrgfdsrgfdsr']))
+
+
+# test_list_memory()
+test_memory2()
