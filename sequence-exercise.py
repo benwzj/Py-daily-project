@@ -1,6 +1,7 @@
 #################################################################
 # reverse a string.
 
+import numpy as np
 import sys
 import itertools
 str1 = "abcdefghijklmnopqrstuvwxyz"
@@ -383,22 +384,39 @@ def test_enumerate_noerror():
 # test_enumerate_noerror()
 
 #################################################################
-# memory
+# numpy example
 
 
-def test_list_memory():
-    big_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-    part_list = big_list[:5]
-    part_list_2 = part_list * 5
-    print("size of big", sys.getsizeof(big_list))
-    print("size of part_list", sys.getsizeof(part_list_2))
+def test_list_2D():
+    arr = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
+    # print(arr[:, : -1])
+    # print(arr[:, -1])
+    # arr = list([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
+    print(arr[0:2, 1: 3])
 
 
-def test_memory2():
-    print("size of 12", sys.getsizeof(['1', '2']))
-    print("size of 1", sys.getsizeof(['1']))
-    print("size of 3", sys.getsizeof(['1dfgregfdsgrgfdsrgfdsrgfdsrgfdsr']))
+# test_list_2D()
+
+#################################################################
+# operators example:
+# The % operator does modulus
+# The ** operator does exponentiation
+# The ^ operator does a binary xor.
+# The // operator does Python's version of integer division.
+
+def test_operator():
+    print(f'% test 4%3 = {4%3}')
+    print(f'^ test 3^1 = {3^1}')
+    print(f'** test 5**3 = {5**3}')
+    print(f'// test 16//3 = {16//3}')
+    print(f'/ test 16/3 = {16/3}')
 
 
-# test_list_memory()
-test_memory2()
+test_operator()
+
+def test_operator2():
+    try:
+        # %tensorflow_version only exists in Colab.
+        %tensorflow_version 2.x
+    except Exception:
+        pass
