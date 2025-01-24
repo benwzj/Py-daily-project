@@ -14,17 +14,17 @@ CORS(app)
 mysql = MySQL()
 app.config['MYSQL_DATABASE_USER'] = 'root'
 app.config['MYSQL_DATABASE_PASSWORD'] = 'Gbca-123'
-app.config['MYSQL_DATABASE_DB'] = 'careertraining'
+app.config['MYSQL_DATABASE_DB'] = 'classicmodels'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 mysql.init_app(app)
 
 
-@auth.verify_password
-def authenticate(username, password):
-    if username == "GBCA" and password == "abc!!":
-        return True
-    else:
-        return False
+# @auth.verify_password
+# def authenticate(username, password):
+#     if username == "GBCA" and password == "abc!!":
+#         return True
+#     else:
+#         return False
 
 
 def format_response(data, status_code=200):
@@ -32,13 +32,61 @@ def format_response(data, status_code=200):
     response.status_code = status_code
     return response
 
-
-@app.route('/students')
-def get_students():
+@app.route('/employees')
+def get_employees():
     try:
         conn = mysql.connect()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
-        cursor.execute("select studentid, student_name, mobile from students")
+        cursor.execute("select * from employees")
+        rows = cursor.fetchall()
+        return format_response(rows)
+
+    except pymysql.Error as e:
+        return format_response(e.args[1], 400)
+    
+
+@app.route('/employee/<int:employeenumber>')
+def get_employee(employeenumber):
+    try:
+        conn = mysql.connect()
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
+        sql = f"select * from employees where employeeNumber = {employeenumber}"
+        affected_row = cursor.execute(sql)
+        if affected_row == 1:
+            row = cursor.fetchone()
+            return format_response(row)
+        else:
+            return format_response("Invalid employee number.", 404)
+        
+    except pymysql.Error as e:
+        return format_response(e.args[1], 400)
+
+@app.route('/employees', methods = ['POST']  )
+# @auth.login_required
+def add_employee():
+    new_employee  = request.json
+    try:
+        conn = mysql.connect()
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
+        sql = f"insert into employees (employeeNumber, lastName, firstName, email, jobTitle, officeCode) values ( {new_employee.get('employeeNumber')}, '{new_employee.get('lastName')}', '{new_employee.get('firstName')}', {new_employee.get('email')}, {new_employee.get('jobTitle')}, {new_employee.get('officeCode')})"
+
+        affected_row = cursor.execute(sql)
+        conn.commit()
+        
+        if affected_row == 1:
+            return format_response("employee added successfully")
+        else:
+            return format_response("Insert error", 404)
+        
+    except pymysql.Error as e:
+        return format_response(e.args[1], 400)
+    
+@app.route('/customers')
+def get_customers():
+    try:
+        conn = mysql.connect()
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
+        cursor.execute("select * from customers")
         rows = cursor.fetchall()
         return format_response(rows)
 
@@ -46,39 +94,18 @@ def get_students():
         return format_response(e.args[1], 400)
 
 
-@app.route('/students/<int:studentid>')
-def get_one_student(studentid):
+@app.route('/customer/<int:customernumber>')
+def get_customer(customernumber):
     try:
         conn = mysql.connect()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
-        sql = f"select studentid, student_name, mobile from students where studentid = {studentid}"
+        sql = f"select * from customers where customerNumber = {customernumber}"
         affected_row = cursor.execute(sql)
         if affected_row == 1:
             row = cursor.fetchone()
             return format_response(row)
         else:
-            return format_response("Invalid student id.", 404)
-        
-    except pymysql.Error as e:
-        return format_response(e.args[1], 400)
-
-
-@app.route('/students', methods = ['POST']  )
-@auth.login_required
-def add_student():
-    new_student  = request.json
-    try:
-        conn = mysql.connect()
-        cursor = conn.cursor(pymysql.cursors.DictCursor)
-        sql = f"insert into students (studentid, student_name, mobile ) values ( {new_student.get('studentid')}, '{new_student.get('student_name')}', '{new_student.get('mobile')}')"
-
-        affected_row = cursor.execute(sql)
-        conn.commit()
-        
-        if affected_row == 1:
-            return format_response("Student added successfully")
-        else:
-            return format_response("Insert error", 404)
+            return format_response("Invalid customer number.", 404)
         
     except pymysql.Error as e:
         return format_response(e.args[1], 400)
