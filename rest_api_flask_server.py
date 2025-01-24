@@ -3,6 +3,7 @@ from flaskext.mysql import MySQL
 import pymysql
 from flask_cors import CORS
 from flask_httpauth import HTTPBasicAuth
+import env
 
 
 app = Flask(__name__)
@@ -10,17 +11,12 @@ auth = HTTPBasicAuth()
 
 CORS(app)
 
-username = 'root'
-mysql_pass = 'Gbca-123'
-mysql_db = 'classicmodels'
-mysql_host = 'localhost'
-
 # Setup database connection
 mysql = MySQL()
-app.config['MYSQL_DATABASE_USER'] = username
-app.config['MYSQL_DATABASE_PASSWORD'] = mysql_pass
-app.config['MYSQL_DATABASE_DB'] = mysql_db
-app.config['MYSQL_DATABASE_HOST'] = mysql_host
+app.config['MYSQL_DATABASE_USER'] = env.username
+app.config['MYSQL_DATABASE_PASSWORD'] = env.mysql_pass
+app.config['MYSQL_DATABASE_DB'] = env.mysql_db
+app.config['MYSQL_DATABASE_HOST'] = env.mysql_host
 mysql.init_app(app)
 
 
