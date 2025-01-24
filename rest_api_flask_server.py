@@ -10,12 +10,17 @@ auth = HTTPBasicAuth()
 
 CORS(app)
 
+username = 'root'
+mysql_pass = 'Gbca-123'
+mysql_db = 'classicmodels'
+mysql_host = 'localhost'
+
 # Setup database connection
 mysql = MySQL()
-app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'Gbca-123'
-app.config['MYSQL_DATABASE_DB'] = 'classicmodels'
-app.config['MYSQL_DATABASE_HOST'] = 'localhost'
+app.config['MYSQL_DATABASE_USER'] = username
+app.config['MYSQL_DATABASE_PASSWORD'] = mysql_pass
+app.config['MYSQL_DATABASE_DB'] = mysql_db
+app.config['MYSQL_DATABASE_HOST'] = mysql_host
 mysql.init_app(app)
 
 
